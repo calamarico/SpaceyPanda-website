@@ -22,12 +22,6 @@ export const site: SiteData = {
 
   hero_meta: ["Melodic Electronic", "Producer", "Writer", "Est. 2019"],
 
-  releases: [
-    { title: "Northern Drift", kind: "Single", date: "21 Mar 2026", cover: "sp-cover-1" },
-    { title: "Soft Orbits", kind: "EP · 4", date: "08 Nov 2025", cover: "sp-cover-2" },
-    { title: "Lantern Sky", kind: "Single", date: "12 Sep 2025", cover: "sp-cover-3" },
-  ],
-
   streaming: [
     { name: "Spotify", handle: "open.spotify.com/artist", icon: "spotify", color: "#1DB954" },
     { name: "Apple Music", handle: "music.apple.com", icon: "apple", color: "#FA243C" },

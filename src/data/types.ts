@@ -32,13 +32,6 @@ export interface Stats {
   label: string;
 }
 
-export interface Release {
-  title: string;
-  kind: string;
-  date: string;
-  cover: CoverClass;
-}
-
 export interface Platform {
   name: string;
   handle: string;
@@ -73,7 +66,6 @@ export interface SiteData {
   artist: Artist;
   stats: Stats;
   hero_meta: string[];
-  releases: Release[];
   streaming: Platform[];
   blog: BlogMeta;
   instagram: InstagramMeta;

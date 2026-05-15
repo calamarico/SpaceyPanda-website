@@ -12,6 +12,8 @@ import {
   FaArrowUpRightFromSquare,
   FaLocationDot,
   FaWandMagicSparkles,
+  FaBars,
+  FaXmark,
 } from "react-icons/fa6";
 import { SiApplemusic, SiBeatport, SiTidal } from "react-icons/si";
 
@@ -37,4 +39,6 @@ export const ui = {
   ExternalLink: FaArrowUpRightFromSquare,
   Pin: FaLocationDot,
   Sparkle: FaWandMagicSparkles,
+  Menu: FaBars,
+  Close: FaXmark,
 } as const;
