@@ -473,6 +473,7 @@ a {
   padding: 120px 24px 80px;
   position: relative;
   text-align: center;
+  overflow: hidden;
 }
 .sp-hero-inner {
   display: flex;
@@ -587,26 +588,6 @@ a {
   }
 }
 
-.sp-hero h1 {
-  font-family: var(--font-display);
-  font-size: var(--display-1-size);
-  line-height: 0.92;
-  letter-spacing: -0.02em;
-  margin: 0;
-  text-wrap: balance;
-}
-.sp-hero h1 .sp-line-1 {
-  display: block;
-  font-weight: 300;
-  -webkit-text-stroke: 1.5px var(--fg-1);
-  color: transparent;
-  letter-spacing: 0.04em;
-}
-.sp-hero h1 .sp-line-2 {
-  display: block;
-  font-weight: 700;
-  margin-top: 0.05em;
-}
 .sp-hero-tag {
   font-size: clamp(16px, 1.7vw, 20px);
   font-weight: 300;
@@ -646,6 +627,43 @@ a {
   gap: 14px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.sp-portrait-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.sp-portrait-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 35% center;
+  opacity: 0.7;
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 35%, transparent 88%);
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 35%, transparent 88%);
+}
+.sp-portrait-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(4, 3, 10, 0.7) 0%,
+      rgba(4, 3, 10, 0.3) 25%,
+      rgba(4, 3, 10, 0.55) 60%,
+      rgba(4, 3, 10, 0.95) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 3, 10, 0.5) 0%,
+      transparent 25%,
+      transparent 70%,
+      rgba(4, 3, 10, 0.98) 100%
+    );
 }
 
 /* ==========================================================================

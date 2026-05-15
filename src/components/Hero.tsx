@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import logoUrl from "../assets/spacey-logo.jpg";
+import portraitUrl from "../assets/spacey-portrait.png";
 import { site } from "../data/data";
 import { ui } from "../lib/icons";
 
@@ -16,7 +17,11 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="top" className="sp-hero">
+    <section id="top" className="sp-hero" data-hero-mode="logo-aura">
+      <div className="sp-portrait-layer" aria-hidden>
+        <img src={portraitUrl} alt="" />
+      </div>
+      <div className="sp-portrait-vignette" aria-hidden />
       <div className="sp-hero-inner">
         <span className="sp-hero-pill">
           <span className="sp-dot" aria-hidden />
@@ -47,10 +52,10 @@ export function Hero() {
           <img src={logoUrl} alt="Spacey Panda" />
         </div>
 
-        <h1 className="sp-hero-tag">
+        <h2 className="sp-hero-tag" style={{ margin: 0 }}>
           <ui.Headphones size={18} />
           <span>{site.artist.tagline}</span>
-        </h1>
+        </h2>
 
         <div className="sp-hero-meta">
           {site.hero_meta.map((m) => (
