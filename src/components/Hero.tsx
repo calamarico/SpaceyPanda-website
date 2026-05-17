@@ -67,7 +67,12 @@ export function Hero() {
         </div>
 
         <div className="sp-hero-ctas">
-          <a className="sp-btn sp-btn-primary sp-btn-large" href="#listen">
+          <a
+            className="sp-btn sp-btn-primary sp-btn-large"
+            href={site.streaming.find((s) => s.icon === "spotify")?.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <ui.Spotify size={18} /> Listen on Spotify
           </a>
           <a

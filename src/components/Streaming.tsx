@@ -21,7 +21,14 @@ export function Streaming() {
             const Icon = platformIcons[s.icon];
             const styleVars = { "--platform-color": s.color } as CSSProperties;
             return (
-              <a key={s.name} className="sp-stream-card" style={styleVars} href="#">
+              <a
+                key={s.name}
+                className="sp-stream-card"
+                style={styleVars}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <div className="sp-stream-icon">
                   <Icon size={22} />
                 </div>

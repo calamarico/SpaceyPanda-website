@@ -37,6 +37,7 @@ export interface Platform {
   handle: string;
   icon: PlatformIcon;
   color: string;
+  url: string;
 }
 
 export interface BlogPost {
