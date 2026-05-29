@@ -1,10 +1,45 @@
 // AUTO-GENERATED — do not edit by hand.
 // Run `npm run sync:catalog` to refresh.
-// Generated at 2026-05-15T21:19:36.531Z
+// Generated at 2026-05-29T08:48:50.538Z
 
 import type { Release } from "./catalog";
 
 export const releases: Release[] = [
+  {
+    "id": "7F9m0pmM2d65nRmfVRX12s",
+    "name": "Slow Gravity Zone",
+    "type": "SINGLE",
+    "date": "2026-05-29",
+    "datePrecision": "DAY",
+    "trackCount": 1,
+    "coverArt": "https://i.scdn.co/image/ab67616d0000b27384998c9ada8c005652bb3745",
+    "spotifyUrl": "https://open.spotify.com/album/7F9m0pmM2d65nRmfVRX12s",
+    "artists": [
+      {
+        "id": "5XPqo8CFovDIu4bbfoaxRd",
+        "name": "Spacey Panda",
+        "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+      }
+    ],
+    "isPrimaryArtist": true,
+    "tracks": [
+      {
+        "id": "7zU7dIDO2MzxgsjhNCXoTP",
+        "name": "Slow Gravity Zone",
+        "trackNumber": 1,
+        "durationMs": 272687,
+        "spotifyUrl": "https://open.spotify.com/track/7zU7dIDO2MzxgsjhNCXoTP",
+        "artists": [
+          {
+            "id": "5XPqo8CFovDIu4bbfoaxRd",
+            "name": "Spacey Panda",
+            "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+          }
+        ],
+        "isCollab": false
+      }
+    ]
+  },
   {
     "id": "4k1Nlc8VzKIzLzGmbmnw4W",
     "name": "Cést une Symphonie - voice remix",
