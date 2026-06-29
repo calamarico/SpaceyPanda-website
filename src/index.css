@@ -461,76 +461,110 @@ a {
   align-items: center;
   gap: 12px;
 }
-.sp-nav-toggle {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--fg-1);
-  cursor: pointer;
-  padding: 0;
-  transition: all var(--dur-base) var(--ease-out);
-}
-.sp-nav-toggle:hover {
-  border-color: rgb(var(--cyan-rgb) / 0.6);
-  color: rgb(var(--cyan-soft-rgb));
-}
-
-.sp-nav-mobile {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: rgba(4, 3, 10, 0.92);
-  backdrop-filter: blur(20px) saturate(140%);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  border-bottom: 1px solid var(--border);
-  padding: 8px 24px 16px;
-  display: none;
-  flex-direction: column;
-  opacity: 0;
-  transform: translateY(-8px);
-  pointer-events: none;
-  transition:
-    opacity var(--dur-base) var(--ease-out),
-    transform var(--dur-base) var(--ease-out);
-}
-.sp-nav-mobile.is-open {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.sp-nav-mobile a {
-  padding: 16px 4px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--fg-2);
-  border-bottom: 1px solid var(--border);
-  transition: color var(--dur-quick) var(--ease-out);
-}
-.sp-nav-mobile a:last-child {
-  border-bottom: none;
-}
-.sp-nav-mobile a:hover,
-.sp-nav-mobile a:focus-visible {
-  color: rgb(var(--accent-soft-rgb));
-}
-
+/* Hide the center links + pill CTA on mobile; the drawer takes over. */
 @media (max-width: 880px) {
   .sp-nav-links {
     display: none;
   }
-  .sp-nav-toggle {
-    display: inline-flex;
+  .sp-nav-cta {
+    display: none;
   }
-  .sp-nav-mobile {
-    display: flex;
+}
+
+/* --- Mobile hamburger (mobile-first: shown by default, hidden >=881) ---- */
+.sp-nav-burger {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  padding: 0;
+}
+.sp-nav-burger span {
+  display: block;
+  width: 18px;
+  height: 1.6px;
+  background: var(--fg-1);
+  border-radius: 2px;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    opacity var(--dur-quick) var(--ease-out);
+}
+.sp-nav-burger.is-open span:nth-child(1) {
+  transform: translateY(6.6px) rotate(45deg);
+}
+.sp-nav-burger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.sp-nav-burger.is-open span:nth-child(3) {
+  transform: translateY(-6.6px) rotate(-45deg);
+}
+
+/* --- Mobile menu overlay (fully OPAQUE ink-950 base — no hero bleed-through) */
+.sp-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 49; /* sits just below the fixed nav (50) so the X stays tappable */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 44px;
+  padding: 96px 24px 48px;
+  background:
+    radial-gradient(circle at 72% 16%, rgb(var(--accent-rgb) / 0.22), transparent 56%),
+    radial-gradient(circle at 18% 86%, rgb(var(--cyan-rgb) / 0.16), transparent 56%),
+    var(--ink-950);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    visibility 0s linear var(--dur-base);
+}
+.sp-mobile-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+.sp-mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.sp-mobile-menu-links a {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--fg-1);
+  padding: 6px 14px;
+  transition: color var(--dur-quick) var(--ease-out);
+}
+.sp-mobile-menu-links a:hover {
+  color: rgb(var(--accent-soft-rgb));
+}
+@media (min-width: 881px) {
+  .sp-nav-burger {
+    display: none;
+  }
+  .sp-mobile-menu {
+    display: none;
   }
 }
 
@@ -713,8 +747,14 @@ a {
   object-fit: cover;
   object-position: 35% center;
   opacity: 0.7;
-  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 35%, transparent 88%);
-  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 35%, transparent 88%);
+  /* The source profile already faces RIGHT. Keep that natural orientation (no
+     flip) and slide the image to the right so the face sits on the right side
+     looking OUTWARD; the colour-burst runs off the right edge and the left
+     falls back to plain cosmos. Mask is biased toward the face so the left edge
+     dissolves softly into the backdrop instead of cutting a hard line. */
+  transform: translateX(48%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 34% 50%, #000 34%, transparent 84%);
+  mask-image: radial-gradient(ellipse 80% 80% at 34% 50%, #000 34%, transparent 84%);
 }
 .sp-portrait-vignette {
   position: absolute;
@@ -2210,6 +2250,13 @@ a {
   grid-template-columns: 1.3fr 1fr;
   gap: 64px;
   align-items: center;
+  min-width: 0;
+}
+/* Both the grid AND its children need min-width:0, otherwise the nowrap
+   "Read on spaceypandamusic.com" CTA sets a min-content floor that balloons
+   the card past a phone viewport and body{overflow-x:hidden} clips the copy. */
+.sp-blog-feature-inner > * {
+  min-width: 0;
 }
 @media (max-width: 880px) {
   .sp-blog-feature {
@@ -2227,6 +2274,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
   padding: 6px 12px;
   border-radius: var(--radius-pill);
   background: rgb(var(--accent-rgb) / 0.18);
@@ -2427,6 +2475,70 @@ a {
   color: var(--fg-5);
   flex-wrap: wrap;
   gap: 16px;
+}
+
+/* ==========================================================================
+   SMALL SCREENS — phone polish (<=560px)
+   ========================================================================== */
+@media (max-width: 560px) {
+  .sp-container {
+    padding: 0 18px;
+  }
+  .sp-section {
+    padding: 64px 0;
+  }
+
+  .sp-hero {
+    padding: 100px 18px 60px;
+  }
+  .sp-hero-inner {
+    gap: 28px;
+  }
+  .sp-hero-pill {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    max-width: 100%;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    padding: 7px 14px;
+  }
+  /* full-width stacked CTAs so they never crowd the edge */
+  .sp-hero-ctas {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sp-hero-ctas .sp-btn {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .sp-stream-grid {
+    grid-template-columns: 1fr;
+  }
+  /* The timeline view bleeds to the container edge by negating its padding;
+     match the 18px padding here so it doesn't overshoot and cause 6px of
+     horizontal scroll on phones. */
+  .sp-release-timeline-bleed {
+    margin: 0 -18px;
+  }
+  .sp-stat-card {
+    padding: 26px 22px;
+  }
+  .sp-blog-feature {
+    padding: 32px 22px;
+  }
+  .sp-mobile-menu-links a {
+    font-size: 16px;
+    letter-spacing: 0.24em;
+  }
+  /* long CTA labels (e.g. the blog domain) must wrap, never force overflow */
+  .sp-btn {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
 }
 
 /* ==========================================================================
