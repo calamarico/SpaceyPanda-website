@@ -64,3 +64,25 @@ export function formatDay(release: Release): string {
 export function releaseYear(release: Release): number {
   return new Date(release.date).getUTCFullYear();
 }
+
+/**
+ * The most recent release where Spacey Panda is the primary artist
+ * (skips "appears on" credits). Catalogue is already sorted newest-first.
+ */
+export function latestRelease(): Release | undefined {
+  return releases.find((r) => !isAppearsOn(r));
+}
+
+/** Singular noun for a release type, for prose like "New single · …". */
+export function releaseKindWord(release: Release): string {
+  switch (release.type) {
+    case "SINGLE":
+      return "single";
+    case "EP":
+      return "EP";
+    case "ALBUM":
+      return "album";
+    default:
+      return "release";
+  }
+}

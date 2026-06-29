@@ -6,7 +6,6 @@ const LINKS = [
   { href: "#releases", label: "Releases" },
   { href: "#listen", label: "Listen" },
   { href: "#blog", label: "Blog" },
-  { href: "#instagram", label: "Instagram" },
 ];
 
 export function Navbar() {

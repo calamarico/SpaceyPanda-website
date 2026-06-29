@@ -3,6 +3,9 @@ import { ui } from "../lib/icons";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const spotifyUrl = site.streaming.find((s) => s.icon === "spotify")?.url;
+  // ⚠️ Bandcamp URL is still a guess (spaceypanda.bandcamp.com) — confirm before launch.
+  const bandcampUrl = site.streaming.find((s) => s.icon === "bandcamp")?.url;
 
   return (
     <footer className="sp-footer">
@@ -24,7 +27,6 @@ export function Footer() {
               <a href="#releases">Releases</a>
               <a href="#listen">Listen</a>
               <a href="#blog">Blog</a>
-              <a href="#instagram">Instagram</a>
             </div>
           </div>
           <div>
@@ -36,9 +38,16 @@ export function Footer() {
               <a href={site.instagram.url} target="_blank" rel="noopener noreferrer">
                 {site.instagram.handle}
               </a>
-              <a href="#">open.spotify.com</a>
-              <a href="#">Bandcamp</a>
-              <a href="mailto:bookings@spaceypandamusic.com">Booking enquiries</a>
+              {spotifyUrl && (
+                <a href={spotifyUrl} target="_blank" rel="noopener noreferrer">
+                  open.spotify.com
+                </a>
+              )}
+              {bandcampUrl && (
+                <a href={bandcampUrl} target="_blank" rel="noopener noreferrer">
+                  Bandcamp
+                </a>
+              )}
             </div>
           </div>
         </div>

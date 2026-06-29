@@ -1,5 +1,7 @@
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { site } from "../data/data";
+import type { BlogPost } from "../data/types";
+import { fetchLatestPosts } from "../lib/wordpress";
 import { ui } from "../lib/icons";
 
 const NODES = [
@@ -12,17 +14,15 @@ const NODES = [
   { x: 130, y: 55, r: 1.8 },
 ];
 
-function Constellation() {
-  const faintDots = useMemo(
-    () =>
-      Array.from({ length: 30 }, () => ({
-        cx: Math.random() * 200,
-        cy: Math.random() * 200,
-        r: Math.random() * 0.6 + 0.2,
-      })),
-    [],
-  );
+// Decorative background stars — scattered once at module load so positions stay
+// stable across renders (and never call an impure fn during render).
+const FAINT_DOTS = Array.from({ length: 30 }, () => ({
+  cx: Math.random() * 200,
+  cy: Math.random() * 200,
+  r: Math.random() * 0.6 + 0.2,
+}));
 
+function Constellation() {
   return (
     <svg viewBox="0 0 200 200" aria-hidden>
       <defs>
@@ -49,14 +49,53 @@ function Constellation() {
           <circle cx={p.x} cy={p.y} r={p.r} fill="url(#blogDotGrad)" />
         </g>
       ))}
-      {faintDots.map((d, i) => (
+      {FAINT_DOTS.map((d, i) => (
         <circle key={`f${i}`} cx={d.cx} cy={d.cy} r={d.r} fill="rgba(246,245,255,0.5)" />
       ))}
     </svg>
   );
 }
 
+// ⚠️ PROVISIONAL blog cover treatment. The original 4:3 crop was flagged as too
+// large in the pilot review. This renders as a short banner whose ratio is the
+// CSS var `--sp-post-cover-ratio` (see index.css). To restyle, change that var,
+// or swap <PostCover> for a small square thumbnail / image-left row. Not final.
+const FALLBACK_COVERS = ["sp-cover-3", "sp-cover-6", "sp-cover-1"] as const;
+
+function PostCover({ post, index }: { post: BlogPost; index: number }) {
+  if (post.image) {
+    return (
+      <div className="sp-post-cover">
+        <img src={post.image} alt="" loading="lazy" decoding="async" />
+      </div>
+    );
+  }
+  // No featured image → cosmic gradient placeholder.
+  const cover = FALLBACK_COVERS[index % FALLBACK_COVERS.length];
+  return (
+    <div className={`sp-post-cover sp-post-cover--fallback ${cover}`} aria-hidden>
+      <span className="sp-post-cover-stars" />
+    </div>
+  );
+}
+
 export function Blog() {
+  // Start from the static fallback, then swap in the live WordPress feed.
+  // On any fetch error, keep the fallback silently.
+  const [posts, setPosts] = useState<BlogPost[]>(site.blog.posts);
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+    fetchLatestPosts(ctrl.signal)
+      .then((live) => {
+        if (live.length > 0) setPosts(live);
+      })
+      .catch(() => {
+        /* network/HTTP/abort — keep the static fallback */
+      });
+    return () => ctrl.abort();
+  }, []);
+
   return (
     <section id="blog" className="sp-section sp-blog">
       <div className="sp-container sp-reveal">
@@ -88,14 +127,15 @@ export function Blog() {
         </div>
 
         <div className="sp-blog-posts">
-          {site.blog.posts.map((p) => (
+          {posts.map((p, i) => (
             <a
-              key={p.title}
+              key={p.url || p.title}
               className="sp-post"
-              href={site.blog.url}
+              href={p.url}
               target="_blank"
               rel="noopener noreferrer"
             >
+              <PostCover post={p} index={i} />
               <span className="sp-post-kind">{p.kind}</span>
               <h3 className="sp-post-title">{p.title}</h3>
               <p className="sp-post-excerpt">{p.excerpt}</p>

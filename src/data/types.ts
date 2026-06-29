@@ -46,6 +46,10 @@ export interface BlogPost {
   excerpt: string;
   date: string;
   readTime: string;
+  /** Per-post permalink. Live posts link to their own article. */
+  url: string;
+  /** Featured image URL. May be absent → card falls back to a gradient cover. */
+  image?: string | null;
 }
 
 export interface BlogMeta {
@@ -56,11 +60,13 @@ export interface BlogMeta {
   posts: BlogPost[];
 }
 
+/**
+ * Instagram no longer has a dedicated section (removed in the pilot review).
+ * Only the handle + profile URL survive, for the single footer "Elsewhere" link.
+ */
 export interface InstagramMeta {
   handle: string;
   url: string;
-  followers: string;
-  tiles: CoverClass[];
 }
 
 export interface SiteData {

@@ -2,9 +2,16 @@ import { useMemo } from "react";
 import logoUrl from "../assets/spacey-logo.jpg";
 import portraitUrl from "../assets/spacey-portrait.png";
 import { site } from "../data/data";
+import { latestRelease, releaseKindWord } from "../lib/catalog";
 import { ui } from "../lib/icons";
 
 export function Hero() {
+  // Promo pill is driven by the latest Spotify release, not a hardcoded string.
+  const latest = latestRelease();
+  const pillText = latest
+    ? `New ${releaseKindWord(latest)} · ${latest.name} · out now`
+    : "New music · out now";
+
   const dots = useMemo(() => {
     const N = 64;
     return Array.from({ length: N }, (_, i) => {
@@ -25,7 +32,7 @@ export function Hero() {
       <div className="sp-hero-inner">
         <span className="sp-hero-pill">
           <span className="sp-dot" aria-hidden />
-          New single · Northern Drift · out now
+          {pillText}
         </span>
 
         <div className="sp-logo-wrap">

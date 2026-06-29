@@ -2272,6 +2272,7 @@ a {
   gap: 14px;
   min-height: 280px;
   cursor: pointer;
+  overflow: hidden;
 }
 .sp-post:hover {
   background: rgba(255, 255, 255, 0.05);
@@ -2321,97 +2322,43 @@ a {
   transform: translateX(4px);
 }
 
-/* ==========================================================================
-   INSTAGRAM
-   ========================================================================== */
-.sp-ig-head {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 80px;
-  align-items: end;
-  margin-bottom: 56px;
-}
-@media (max-width: 880px) {
-  .sp-ig-head {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    align-items: start;
-  }
-}
-.sp-ig-stat {
-  text-align: right;
-}
-@media (max-width: 880px) {
-  .sp-ig-stat {
-    text-align: left;
-  }
-}
-.sp-ig-stat-num {
-  font-family: var(--font-display);
-  font-size: clamp(56px, 7vw, 88px);
-  font-weight: 700;
-  line-height: 1;
-  background: linear-gradient(120deg, rgb(var(--accent-rgb)), rgb(var(--cyan-rgb)));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  letter-spacing: -0.03em;
-}
-.sp-ig-stat-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--fg-4);
-  margin-top: 8px;
-}
-.sp-ig-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
-}
-@media (max-width: 880px) {
-  .sp-ig-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-.sp-ig-tile {
-  aspect-ratio: 1;
-  border-radius: var(--radius-md);
-  overflow: hidden;
+/* Blog post cover — PROVISIONAL. Short banner so it never dominates the card
+   (the original 4:3 crop read too large). Swap `--sp-post-cover-ratio` for a
+   different proportion, or restyle <PostCover> for a square thumb / side image. */
+.sp-post-cover {
+  --sp-post-cover-ratio: 16 / 7;
   position: relative;
-  cursor: pointer;
-  transition: transform var(--dur-base) var(--ease-out);
+  margin: -28px -28px 4px; /* bleed past the card's 28px padding to its edges */
+  aspect-ratio: var(--sp-post-cover-ratio);
+  overflow: hidden;
 }
-.sp-ig-tile:hover {
+.sp-post-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.sp-post:hover .sp-post-cover img {
   transform: scale(1.04);
-  z-index: 2;
 }
-.sp-ig-tile::after {
+.sp-post-cover::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4));
-  opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-out);
+  background: linear-gradient(180deg, transparent 55%, rgba(4, 3, 10, 0.55));
+  pointer-events: none;
 }
-.sp-ig-tile:hover::after {
-  opacity: 1;
-}
-.sp-ig-tile-stars {
+.sp-post-cover-stars {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.9), transparent),
-    radial-gradient(1px 1px at 75% 50%, rgba(255, 255, 255, 0.8), transparent),
-    radial-gradient(1px 1px at 50% 80%, rgba(255, 255, 255, 0.7), transparent),
-    radial-gradient(2px 2px at 80% 25%, rgba(255, 255, 255, 0.9), transparent);
-  opacity: 0.6;
-}
-.sp-ig-cta {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
+    radial-gradient(1px 1px at 20% 35%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 70% 55%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 45% 75%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(2px 2px at 85% 25%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 60% 18%, rgba(255, 255, 255, 0.6), transparent);
+  opacity: 0.7;
 }
 
 /* ==========================================================================

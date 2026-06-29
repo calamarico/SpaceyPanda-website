@@ -9,18 +9,17 @@ export const site: SiteData = {
     bio: [
       "I'm a melodic-electronic producer from Canada, working in the soft space between dance music and ambient drift — synths that breathe, basslines you can dance to slowly, and percussion that feels like it's mapping something out in the dark.",
       "My tracks tend to start as small constellations — a chord, a vocal chop, a single texture — that I trace out until they connect into a full sky. Continuous, melodic, a little nostalgic. I'd rather move you than impress you.",
-      "Off the decks I write a blog about the people behind the music — interviews, listening notes, and the songs I can't stop returning to.",
     ],
   },
 
   stats: {
     based_in: "Canada",
-    started: "2019",
+    started: "2022",
     releases: "32 tracks",
     label: "Independent",
   },
 
-  hero_meta: ["Melodic Electronic", "Producer", "Writer", "Est. 2019"],
+  hero_meta: ["Melodic Electronic", "Producer", "Est. 2022"],
 
   streaming: [
     {
@@ -86,39 +85,47 @@ export const site: SiteData = {
     intro: "Sounds and souls",
     headline: "A little blog about the people behind the music.",
     description:
-      "Interviews with artists I'm into, notes on songs that keep me up at night, and the occasional liner note for my own tracks. Posted whenever it's ready, not on a schedule.",
+      "Long-form interviews with the artists behind the music, plus notes, columns and the occasional liner note — published whenever there's something worth saying, not on a schedule.",
+    // Static fallback — the 3 latest posts as of handoff. At runtime <Blog /> fetches
+    // the live WordPress REST feed and replaces these; on any fetch error it keeps them.
     posts: [
       {
-        kind: "Interview",
-        title: "In conversation with Marlowe Crane on textures, tape & touring solo",
+        kind: "Behind the Music",
+        title: "In the Dark Corners of Jungle: A Conversation with Cumi R.A.S",
         excerpt:
-          "We talked about field recordings from her last trip across the Yukon, why she's only releasing on cassette this year, and the loop pedal she refuses to upgrade.",
-        date: "02 May 2026",
-        readTime: "9 min",
-      },
-      {
-        kind: "Listening Notes",
-        title: "Five tracks I haven't been able to skip this month",
-        excerpt:
-          "A neo-soul B-side I caught on a friend's car stereo, two dub-techno records, and an unreleased demo a producer slipped into my DMs. The fifth one will surprise you.",
-        date: "18 Apr 2026",
-        readTime: "5 min",
-      },
-      {
-        kind: "Liner Notes",
-        title: "Behind 'Northern Drift' — collaborating with Yuki Saito",
-        excerpt:
-          "How a four-bar voice memo became the spine of the single, what Yuki added in Tokyo, and the synth patch that almost didn't make the final mix.",
-        date: "26 Mar 2026",
+          "Cumfi R.A.S was actually one of my first collaborators. At the time, I was already into drum and bass…",
+        date: "23 Jun 2026",
         readTime: "7 min",
+        url: "https://spaceypandamusic.com/in-the-dark-corners-of-jungle-a-conversation-with-cumi-r-a-s/",
+        // CDN URL (i0.wp.com) so the fallback image loads even if the origin is Cloudflare-gated.
+        image: "https://i0.wp.com/spaceypandamusic.com/wp-content/uploads/2026/06/Cumfi.png?fit=296%2C300&ssl=1",
+      },
+      {
+        kind: "Professor Oddfellow's Chronicles",
+        title: "The Remarkable Power of Saying “No”?",
+        excerpt:
+          "Saying “No” might feel rudely impolite, brusque, unsupportive, or just plain negative. We'll look at why it's a skill worth having…",
+        date: "21 Jun 2026",
+        readTime: "6 min",
+        url: "https://spaceypandamusic.com/the-remarkable-power-of-saying-no/",
+        image: null,
+      },
+      {
+        kind: "Ellie's World",
+        title: "What is synesthesia? A quick testimony",
+        excerpt:
+          "Synesthesia, also known as “crossing of the senses,” is where activity in one sensory pathway triggers another…",
+        date: "19 Jun 2026",
+        readTime: "2 min",
+        url: "https://spaceypandamusic.com/what-is-synesthesia-a-quick-testimony/",
+        image: "https://i0.wp.com/spaceypandamusic.com/wp-content/uploads/2026/06/Untitled-design-14.jpg?fit=300%2C300&ssl=1",
       },
     ],
   },
 
+  // No Instagram section anymore — only the handle + URL remain, for the footer link.
   instagram: {
     handle: "@spacey.panda",
     url: "https://www.instagram.com/spacey.panda/",
-    followers: "182K",
-    tiles: ["sp-cover-1", "sp-cover-4", "sp-cover-3", "sp-cover-6", "sp-cover-2", "sp-cover-5"],
   },
 };
