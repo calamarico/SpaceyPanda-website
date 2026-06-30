@@ -26,7 +26,13 @@ export function Hero() {
   return (
     <section id="top" className="sp-hero" data-hero-mode="logo-aura">
       <div className="sp-portrait-layer" aria-hidden>
-        <img src={portraitUrl} alt="" />
+        {/* Sharp copy — masked to reveal ONLY the right-hand colour burst. */}
+        <img className="sp-portrait-base" src={portraitUrl} alt="" />
+        {/* Heavily blurred + scaled copy — masked to the left/face region so the
+            profile dissolves into an abstract colour smear (face never reads). */}
+        <img className="sp-portrait-soft" src={portraitUrl} alt="" />
+        {/* Additive bloom over the old face position. */}
+        <div className="sp-portrait-bloom" />
       </div>
       <div className="sp-portrait-vignette" aria-hidden />
       <div className="sp-hero-inner">

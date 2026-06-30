@@ -50,12 +50,13 @@ export function StarsCanvas() {
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = window.innerWidth;
-      h = window.innerHeight;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
+      // Size from the canvas's OWN box (CSS sets it to 100% × 100% of the fixed
+      // full-viewport element), NOT window.innerWidth — on iOS Safari innerWidth
+      // can exceed the layout width and make the canvas force horizontal scroll.
+      w = canvas.clientWidth;
+      h = canvas.clientHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
 

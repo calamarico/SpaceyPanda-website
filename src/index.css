@@ -157,6 +157,9 @@ html {
   background: var(--bg);
   color: var(--text);
   scroll-behavior: smooth;
+  /* Kill document-level horizontal scroll on iOS Safari: clamp BOTH html and body
+     (clamping body alone still lets the viewport pan on iOS). */
+  overflow-x: hidden;
 }
 body {
   margin: 0;
@@ -168,6 +171,8 @@ body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  max-width: 100%;
   overflow-x: hidden;
 }
 a {
@@ -241,6 +246,11 @@ a {
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  /* Size the canvas from its OWN box (width/height 100% → clientWidth/Height in
+     the RAF loop), never window.innerWidth — on iOS innerWidth can exceed the
+     layout width and push the canvas wider than the document. */
+  width: 100%;
+  height: 100%;
 }
 
 /* ==========================================================================
@@ -739,22 +749,61 @@ a {
   position: absolute;
   inset: 0;
   z-index: 1;
+  overflow: hidden;
   pointer-events: none;
 }
-.sp-portrait-layer img {
+
+/* "Logo + Aura" hero — the FACE MUST NOT be visible. We never crop the colour
+   burst away; instead we stack three copies of the same source so the right-hand
+   light burst stays sharp while the left-hand profile dissolves into an abstract
+   colour smear:
+     • .sp-portrait-base  — sharp copy, masked to reveal ONLY the right burst.
+     • .sp-portrait-soft  — heavily blurred + scaled copy, masked to the left/face
+        region so the profile reads as a colour smear, never a face.
+     • .sp-portrait-bloom — additive (mix-blend-mode: screen) radial bloom over the
+        old face position, washing the dark silhouette into light.
+   (Source composition: dark side-profile on the LEFT, magenta/cyan burst RIGHT.) */
+[data-hero-mode="logo-aura"] .sp-portrait-base,
+[data-hero-mode="logo-aura"] .sp-portrait-soft {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 35% center;
-  opacity: 0.7;
-  /* The source profile already faces RIGHT. Keep that natural orientation (no
-     flip) and slide the image to the right so the face sits on the right side
-     looking OUTWARD; the colour-burst runs off the right edge and the left
-     falls back to plain cosmos. Mask is biased toward the face so the left edge
-     dissolves softly into the backdrop instead of cutting a hard line. */
-  transform: translateX(48%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 34% 50%, #000 34%, transparent 84%);
-  mask-image: radial-gradient(ellipse 80% 80% at 34% 50%, #000 34%, transparent 84%);
+  object-position: 50% 42%;
+}
+[data-hero-mode="logo-aura"] .sp-portrait-base {
+  opacity: 0.8;
+  /* Intersect a right-side reveal with a soft radial edge-fade into the cosmos so
+     only the colour burst survives and the page edges blend seamlessly. */
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 42%, #000 60%),
+    radial-gradient(ellipse 86% 84% at 60% 50%, #000 42%, transparent 86%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 42%, #000 60%),
+    radial-gradient(ellipse 86% 84% at 60% 50%, #000 42%, transparent 86%);
+  mask-composite: intersect;
+}
+[data-hero-mode="logo-aura"] .sp-portrait-soft {
+  opacity: 0.9;
+  transform: scale(1.18);
+  filter: blur(34px);
+  -webkit-mask-image: linear-gradient(90deg, #000 38%, transparent 66%);
+  mask-image: linear-gradient(90deg, #000 38%, transparent 66%);
+}
+[data-hero-mode="logo-aura"] .sp-portrait-bloom {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    ellipse 44% 56% at 33% 46%,
+    rgba(244, 114, 208, 0.55) 0%,
+    rgba(167, 139, 250, 0.32) 38%,
+    rgba(103, 232, 249, 0.18) 62%,
+    transparent 80%
+  );
 }
 .sp-portrait-vignette {
   position: absolute;
