@@ -10,6 +10,11 @@ type CoverProps = {
    * so it should match how big the cover actually renders in that slot.
    */
   sizes?: string;
+  /**
+   * Year badge overlaid on the artwork. Turn it off wherever the release date is
+   * already spelled out beside the cover — it only risks colliding with the art.
+   */
+  showYear?: boolean;
 };
 
 // Spotify encodes the crop size in the image id: the catalogue stores the 640px
@@ -32,7 +37,12 @@ function coverSrcSet(url: string): string | undefined {
   return `${crop(url, 64)} 64w, ${crop(url, 300)} 300w, ${crop(url, 640)} 640w`;
 }
 
-export function Cover({ release, variant = "default", sizes = "240px" }: CoverProps) {
+export function Cover({
+  release,
+  variant = "default",
+  sizes = "240px",
+  showYear = true,
+}: CoverProps) {
   const isMini = variant === "mini";
   const isBig = variant === "big";
   const num = String(releaseNumber(release)).padStart(2, "0");
@@ -56,9 +66,11 @@ export function Cover({ release, variant = "default", sizes = "240px" }: CoverPr
 
       {!isMini && (
         <>
-          <span className="sp-cover-badge sp-cover-badge--year">
-            {releaseYear(release)}
-          </span>
+          {showYear && (
+            <span className="sp-cover-badge sp-cover-badge--year">
+              {releaseYear(release)}
+            </span>
+          )}
 
           <span className="sp-cover-watermark" aria-hidden>
             {num}

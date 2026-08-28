@@ -215,17 +215,18 @@ function FeaturedLead({
       }}
     >
       <div className="sp-release-featured-lead-cover">
-        <Cover release={release} sizes="(max-width: 880px) 92vw, 530px" />
+        <Cover
+          release={release}
+          sizes="(max-width: 880px) 92vw, 530px"
+          showYear={false}
+        />
+      </div>
+
+      <div className="sp-release-featured-lead-body">
         <span className="sp-release-featured-lead-pill">
           <span className="sp-dot" aria-hidden />
           Latest release · Out now
         </span>
-      </div>
-
-      <div className="sp-release-featured-lead-body">
-        <p className="sp-release-featured-lead-eyebrow">
-          {isAppearsOn(release) ? "FEATURED" : release.type}
-        </p>
 
         <h3 className="sp-release-featured-lead-title">
           <span className="sp-text-gradient">{release.name}</span>
@@ -307,7 +308,11 @@ function FeaturedSecondary({
       }}
     >
       <div className="sp-release-featured-secondary-cover">
-        <Cover release={release} sizes="(max-width: 880px) 92vw, 530px" />
+        <Cover
+          release={release}
+          sizes="(max-width: 880px) 92vw, 530px"
+          showYear={false}
+        />
       </div>
       <div className="sp-release-featured-secondary-meta">
         <div className="sp-release-featured-secondary-eyebrow">
