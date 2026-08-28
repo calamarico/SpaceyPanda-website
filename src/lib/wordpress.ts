@@ -39,12 +39,67 @@ interface WpPost {
   };
 }
 
-/** Decode HTML entities and strip tags by round-tripping through a DOM node. */
+// The named entities WordPress actually emits. Numeric references (&#8217; and
+// friends) are handled generically below.
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+  nbsp: "\u00a0",
+  hellip: "\u2026",
+  mdash: "\u2014",
+  ndash: "\u2013",
+  lsquo: "\u2018",
+  rsquo: "\u2019",
+  ldquo: "\u201c",
+  rdquo: "\u201d",
+  laquo: "\u00ab",
+  raquo: "\u00bb",
+  eacute: "\u00e9",
+  egrave: "\u00e8",
+  agrave: "\u00e0",
+  ccedil: "\u00e7",
+  uuml: "\u00fc",
+  ouml: "\u00f6",
+  auml: "\u00e4",
+  ntilde: "\u00f1",
+  deg: "\u00b0",
+  middot: "\u00b7",
+  bull: "\u2022",
+  copy: "\u00a9",
+  trade: "\u2122",
+  euro: "\u20ac",
+  pound: "\u00a3",
+};
+
+function decodeEntities(text: string): string {
+  return text.replace(/&(#x[0-9a-f]+|#\d+|[a-z][a-z0-9]*);/gi, (match, ref: string) => {
+    if (ref.startsWith("#")) {
+      const code =
+        ref[1] === "x" || ref[1] === "X"
+          ? Number.parseInt(ref.slice(2), 16)
+          : Number.parseInt(ref.slice(1), 10);
+      return Number.isFinite(code) && code > 0 && code <= 0x10ffff
+        ? String.fromCodePoint(code)
+        : match;
+    }
+    return NAMED_ENTITIES[ref.toLowerCase()] ?? match;
+  });
+}
+
+/**
+ * Strip tags and decode entities without touching the DOM.
+ *
+ * This runs twice for the same posts — once in Node during the prerender, once
+ * in the browser when the live feed refreshes — and the two results have to be
+ * identical or hydration would flag a mismatch.
+ */
 function htmlToText(html: string): string {
-  if (typeof document === "undefined") return html;
-  const el = document.createElement("div");
-  el.innerHTML = html;
-  return (el.textContent || "").replace(/\s+/g, " ").trim();
+  return decodeEntities(html.replace(/<[^>]*>/g, " "))
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /** Plain-text excerpt: strip tags/entities, drop the WP "read more" tail, clamp. */

@@ -3,7 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
 
+    <!-- ── Identity ─────────────────────────────────────────────────────── -->
+    <title>Spacey Panda — Melodic Electronic Producer</title>
+    <meta
+      name="description"
+      content="Spacey Panda is a melodic electronic producer charting constellations of sound and souls. Stream the full catalogue on Spotify, Apple Music, Beatport, Bandcamp and more."
+    />
+    <link rel="canonical" href="https://spaceypanda.com/" />
+    <meta name="author" content="Spacey Panda" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+
+    <!-- ── Social previews ──────────────────────────────────────────────── -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Spacey Panda" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://spaceypanda.com/" />
+    <meta property="og:title" content="Spacey Panda — Melodic Electronic Producer" />
+    <meta
+      property="og:description"
+      content="Melodic electronic producer charting constellations of sound and souls. Stream the full catalogue on Spotify, Apple Music, Beatport, Bandcamp and more."
+    />
+    <meta property="og:image" content="https://spaceypanda.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta
+      property="og:image:alt"
+      content="Spacey Panda — melodic electronic producer"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Spacey Panda — Melodic Electronic Producer" />
+    <meta
+      name="twitter:description"
+      content="Melodic electronic producer charting constellations of sound and souls. Stream the full catalogue on Spotify, Apple Music, Beatport, Bandcamp and more."
+    />
+    <meta name="twitter:image" content="https://spaceypanda.com/og-image.jpg" />
+    <meta
+      name="twitter:image:alt"
+      content="Spacey Panda — melodic electronic producer"
+    />
+
+    <!-- ── Icons / PWA ──────────────────────────────────────────────────── -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -12,25 +58,52 @@
     <meta name="msapplication-TileImage" content="/mstile-150x150.png" />
     <meta name="msapplication-TileColor" content="#000000" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#04030a" />
+    <meta name="apple-mobile-web-app-title" content="Spacey Panda" />
 
-    <!-- Temporary deploy: no indexing while the site is in flight. -->
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="googlebot" content="noindex, nofollow" />
-    <meta name="bingbot" content="noindex, nofollow" />
-
-    <title>Spacey Panda — Melodic Electronic Producer</title>
-    <meta
-      name="description"
-      content="Spacey Panda — melodic electronic producer from Canada. Charting constellations of sound and souls."
-    />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- ── Performance ──────────────────────────────────────────────────── -->
+    <!-- Fonts are self-hosted (see @font-face in src/index.css): no third-party
+         origin, no render-blocking stylesheet. Preload only the two faces used
+         above the fold; the latin-ext + mono subsets load on demand. -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="preload"
+      href="/fonts/space-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <!-- Hero logo is the LCP element. Mirrors the <img> srcset/sizes exactly so
+         the preload scanner fetches the same candidate the layout will pick. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/spacey-logo.webp"
+      imagesrcset="/spacey-logo-480.webp 480w, /spacey-logo.webp 960w"
+      imagesizes="(max-width: 880px) 50vw, 460px"
+      fetchpriority="high"
+    />
+    <!-- Release artwork is served from Spotify's CDN. -->
+    <link rel="preconnect" href="https://i.scdn.co" crossorigin />
+    <link rel="dns-prefetch" href="https://i.scdn.co" />
+
+    <noscript>
+      <!-- Scroll-reveal starts at opacity:0 and is switched on by an
+           IntersectionObserver. Without JS the content must stay visible. -->
+      <style>
+        .sp-reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <div id="root"></div>

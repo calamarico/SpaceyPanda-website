@@ -1,2 +1,9 @@
+# https://spaceypanda.com/robots.txt
 User-agent: *
-Disallow: /
+Allow: /
+
+# Crawler traps: the release grid/list/timeline is the same content under a
+# query param, so keep crawlers on the canonical view.
+Disallow: /*?view=
+
+Sitemap: https://spaceypanda.com/sitemap.xml

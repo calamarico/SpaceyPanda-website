@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { releases, type Release } from "../data/catalog";
 import {
   collaboratorLabel,
@@ -17,11 +17,22 @@ type View = "grid" | "list" | "timeline";
 
 const FEATURED_COUNT = 3;
 
+// The prerendered HTML is always built with the default view, so the first client
+// render has to match it before ?view= can be honoured.
+const DEFAULT_VIEW: View = "timeline";
+
 function readView(): View {
-  if (typeof window === "undefined") return "timeline";
+  if (typeof window === "undefined") return DEFAULT_VIEW;
   const v = new URLSearchParams(window.location.search).get("view");
-  return v === "grid" || v === "list" ? v : "timeline";
+  return v === "grid" || v === "list" ? v : DEFAULT_VIEW;
 }
+
+// ?view= is a shareable-link feature, so it must survive a cold load — but the
+// prerendered markup knows nothing about it. useSyncExternalStore is the escape
+// hatch React provides for exactly that: hydrate against the server snapshot
+// (the default view), then re-render with the client one. Nothing pushes updates
+// afterwards, so the subscribe callback is a no-op.
+const noopSubscribe = () => () => {};
 
 function writeView(v: View) {
   if (typeof window === "undefined") return;
@@ -33,7 +44,10 @@ function writeView(v: View) {
 
 export function Releases() {
   const [filter, setFilter] = useState<Filter>("all");
-  const [view, setView] = useState<View>(readView);
+  const urlView = useSyncExternalStore(noopSubscribe, readView, () => DEFAULT_VIEW);
+  const [chosenView, setChosenView] = useState<View | null>(null);
+  const view = chosenView ?? urlView;
+  const setView = setChosenView;
   const [modalRelease, setModalRelease] = useState<Release | null>(null);
 
   useEffect(() => writeView(view), [view]);
@@ -201,7 +215,7 @@ function FeaturedLead({
       }}
     >
       <div className="sp-release-featured-lead-cover">
-        <Cover release={release} />
+        <Cover release={release} sizes="(max-width: 880px) 92vw, 530px" />
         <span className="sp-release-featured-lead-pill">
           <span className="sp-dot" aria-hidden />
           Latest release · Out now
@@ -293,7 +307,7 @@ function FeaturedSecondary({
       }}
     >
       <div className="sp-release-featured-secondary-cover">
-        <Cover release={release} />
+        <Cover release={release} sizes="(max-width: 880px) 92vw, 530px" />
       </div>
       <div className="sp-release-featured-secondary-meta">
         <div className="sp-release-featured-secondary-eyebrow">
@@ -338,7 +352,7 @@ function GridCard({
       }}
     >
       <div className="sp-release-grid-card-cover">
-        <Cover release={release} />
+        <Cover release={release} sizes="(max-width: 700px) 44vw, 260px" />
       </div>
       <div className="sp-release-grid-card-meta">
         <div className="sp-release-grid-card-row">
@@ -391,7 +405,7 @@ function ListView({
           }}
         >
           <div className="sp-release-list-cover">
-            <Cover release={r} variant="mini" />
+            <Cover release={r} variant="mini" sizes="64px" />
           </div>
           <span className="sp-release-list-title">
             <span className="sp-release-list-name">{r.name}</span>
@@ -457,7 +471,7 @@ function Timeline({
                 }}
               >
                 <div className="sp-release-timeline-cover">
-                  <Cover release={r} />
+                  <Cover release={r} sizes="220px" />
                 </div>
                 <div className="sp-release-timeline-meta">
                   {isAppearsOn(r) ? "FEAT." : r.type}

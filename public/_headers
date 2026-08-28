@@ -1,0 +1,38 @@
+# Cloudflare Pages — https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Hashed build output — safe to cache forever.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Self-hosted fonts. Filenames are stable, so cache long but not immortal.
+/fonts/*
+  Cache-Control: public, max-age=2592000
+  Access-Control-Allow-Origin: *
+
+# Brand imagery: stable filenames, revalidate daily.
+/og-image.jpg
+  Cache-Control: public, max-age=86400
+/spacey-logo.webp
+  Cache-Control: public, max-age=86400
+/spacey-logo.jpg
+  Cache-Control: public, max-age=86400
+/spacey-portrait.webp
+  Cache-Control: public, max-age=86400
+/spacey-portrait-768.webp
+  Cache-Control: public, max-age=86400
+/spacey-portrait.jpg
+  Cache-Control: public, max-age=86400
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=utf-8
+
+/robots.txt
+  Cache-Control: public, max-age=3600

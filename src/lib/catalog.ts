@@ -73,6 +73,12 @@ export function latestRelease(): Release | undefined {
   return releases.find((r) => !isAppearsOn(r));
 }
 
+/**
+ * Releases fronted by Spacey Panda (excludes "appears on" credits).
+ * Derived from the synced catalogue so the figure on the page can never go stale.
+ */
+export const ownReleases: Release[] = releases.filter((r) => !isAppearsOn(r));
+
 /** Singular noun for a release type, for prose like "New single · …". */
 export function releaseKindWord(release: Release): string {
   switch (release.type) {

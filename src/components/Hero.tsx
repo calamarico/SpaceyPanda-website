@@ -1,6 +1,4 @@
 import { useMemo } from "react";
-import logoUrl from "../assets/spacey-logo.jpg";
-import portraitUrl from "../assets/spacey-portrait.png";
 import { site } from "../data/data";
 import { latestRelease, releaseKindWord } from "../lib/catalog";
 import { ui } from "../lib/icons";
@@ -27,10 +25,27 @@ export function Hero() {
     <section id="top" className="sp-hero" data-hero-mode="logo-aura">
       <div className="sp-portrait-layer" aria-hidden>
         {/* Sharp copy — masked to reveal ONLY the right-hand colour burst. */}
-        <img className="sp-portrait-base" src={portraitUrl} alt="" />
+        <img
+          className="sp-portrait-base"
+          src="/spacey-portrait.webp"
+          srcSet="/spacey-portrait-768.webp 768w, /spacey-portrait.webp 1440w"
+          sizes="100vw"
+          width={1440}
+          height={1603}
+          alt=""
+          decoding="async"
+        />
         {/* Heavily blurred + scaled copy — masked to the left/face region so the
-            profile dissolves into an abstract colour smear (face never reads). */}
-        <img className="sp-portrait-soft" src={portraitUrl} alt="" />
+            profile dissolves into an abstract colour smear (face never reads).
+            It is blurred 34px, so the small source is always enough. */}
+        <img
+          className="sp-portrait-soft"
+          src="/spacey-portrait-768.webp"
+          width={768}
+          height={855}
+          alt=""
+          decoding="async"
+        />
         {/* Additive bloom over the old face position. */}
         <div className="sp-portrait-bloom" />
       </div>
@@ -41,9 +56,9 @@ export function Hero() {
           {pillText}
         </span>
 
-        <div className="sp-logo-wrap">
-          <div className="sp-logo-halo" aria-hidden />
-          <div className="sp-logo-ring" aria-hidden>
+        <h1 className="sp-logo-wrap">
+          <span className="sp-logo-halo" aria-hidden />
+          <span className="sp-logo-ring" aria-hidden>
             <svg viewBox="0 0 100 100">
               <defs>
                 <radialGradient id="dotGrad" cx="50%" cy="50%" r="50%">
@@ -61,9 +76,21 @@ export function Hero() {
                 />
               ))}
             </svg>
-          </div>
-          <img src={logoUrl} alt="Spacey Panda" />
-        </div>
+          </span>
+          <img
+            src="/spacey-logo.webp"
+            srcSet="/spacey-logo-480.webp 480w, /spacey-logo.webp 960w"
+            sizes="(max-width: 880px) 50vw, 460px"
+            alt="Spacey Panda"
+            width={960}
+            height={960}
+            fetchPriority="high"
+            decoding="async"
+          />
+          <span className="sp-visually-hidden">
+            Spacey Panda — melodic electronic producer
+          </span>
+        </h1>
 
         <h2 className="sp-hero-tag" style={{ margin: 0 }}>
           <ui.Headphones size={18} />

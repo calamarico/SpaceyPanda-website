@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { site } from "../data/data";
 import type { BlogPost } from "../data/types";
+import { blogSeed } from "../lib/blogSeed";
 import { fetchLatestPosts } from "../lib/wordpress";
 import { ui } from "../lib/icons";
 
@@ -16,10 +17,23 @@ const NODES = [
 
 // Decorative background stars — scattered once at module load so positions stay
 // stable across renders (and never call an impure fn during render).
+// Seeded, NOT Math.random(): this markup is prerendered at build time and then
+// hydrated in the browser, so both passes have to produce identical coordinates.
+function mulberry32(seed: number): () => number {
+  let a = seed;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const rand = mulberry32(0x5eed);
 const FAINT_DOTS = Array.from({ length: 30 }, () => ({
-  cx: Math.random() * 200,
-  cy: Math.random() * 200,
-  r: Math.random() * 0.6 + 0.2,
+  cx: rand() * 200,
+  cy: rand() * 200,
+  r: rand() * 0.6 + 0.2,
 }));
 
 function Constellation() {
@@ -80,9 +94,9 @@ function PostCover({ post, index }: { post: BlogPost; index: number }) {
 }
 
 export function Blog() {
-  // Start from the static fallback, then swap in the live WordPress feed.
-  // On any fetch error, keep the fallback silently.
-  const [posts, setPosts] = useState<BlogPost[]>(site.blog.posts);
+  // Start from whatever the build baked in (live feed at build time, or the
+  // static fallback), then refresh from WordPress. On any fetch error, keep it.
+  const [posts, setPosts] = useState<BlogPost[]>(blogSeed);
 
   useEffect(() => {
     const ctrl = new AbortController();

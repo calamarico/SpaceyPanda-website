@@ -1,4 +1,5 @@
 import { site } from "../data/data";
+import { ownReleases } from "../lib/catalog";
 import { ui } from "../lib/icons";
 
 export function About() {
@@ -37,7 +38,9 @@ export function About() {
             </div>
             <div className="sp-stat-row">
               <span className="sp-stat-label">Catalogue</span>
-              <span className="sp-stat-value sp-stat-value-big">{site.stats.releases}</span>
+              <span className="sp-stat-value sp-stat-value-big">
+                {ownReleases.length} releases
+              </span>
             </div>
             <div className="sp-stat-row">
               <span className="sp-stat-label">Genre</span>

@@ -77,7 +77,11 @@ export function ReleaseModal({ release, onClose }: Props) {
 
           <div className="sp-release-modal-grid">
             <div className="sp-release-modal-cover">
-              <Cover release={release} variant="big" />
+              <Cover
+                release={release}
+                variant="big"
+                sizes="(max-width: 880px) 88vw, 420px"
+              />
             </div>
 
             <div className="sp-release-modal-body">

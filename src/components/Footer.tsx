@@ -4,7 +4,6 @@ import { ui } from "../lib/icons";
 export function Footer() {
   const year = new Date().getFullYear();
   const spotifyUrl = site.streaming.find((s) => s.icon === "spotify")?.url;
-  // ⚠️ Bandcamp URL is still a guess (spaceypanda.bandcamp.com) — confirm before launch.
   const bandcampUrl = site.streaming.find((s) => s.icon === "bandcamp")?.url;
 
   return (
@@ -21,7 +20,7 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h4>Explore</h4>
+            <h2>Explore</h2>
             <div className="sp-footer-links">
               <a href="#about">About</a>
               <a href="#releases">Releases</a>
@@ -30,7 +29,7 @@ export function Footer() {
             </div>
           </div>
           <div>
-            <h4>Elsewhere</h4>
+            <h2>Elsewhere</h2>
             <div className="sp-footer-links">
               <a href={site.blog.url} target="_blank" rel="noopener noreferrer">
                 spaceypandamusic.com

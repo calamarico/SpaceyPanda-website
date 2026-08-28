@@ -28,6 +28,8 @@ export interface Artist {
 export interface Stats {
   based_in: string;
   started: string;
+  /** @deprecated The Vitals card now derives this from the synced catalogue
+   *  (`ownReleases.length`) so it cannot go stale. Kept for compatibility. */
   releases: string;
   label: string;
 }

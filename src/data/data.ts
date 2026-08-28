@@ -27,7 +27,7 @@ export const site: SiteData = {
       handle: "open.spotify.com/artist",
       icon: "spotify",
       color: "#1DB954",
-      url: "https://open.spotify.com/intl-es/artist/5XPqo8CFovDIu4bbfoaxRd?si=AJi5hmvkSxm9kL29oS62bQ",
+      url: "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd",
     },
     {
       name: "Apple Music",
@@ -62,14 +62,14 @@ export const site: SiteData = {
       handle: "beatport.com/artist",
       icon: "beatport",
       color: "#A4FF45",
-      url: "https://www.beatport.com/es/artist/spacey-panda/1194447",
+      url: "https://www.beatport.com/artist/spacey-panda/1194447",
     },
     {
       name: "Deezer",
       handle: "deezer.com/artist",
       icon: "deezer",
       color: "#A238FF",
-      url: "https://www.deezer.com/en/artist/237428831?deferredFl=1",
+      url: "https://www.deezer.com/artist/237428831",
     },
     {
       name: "Tidal",
