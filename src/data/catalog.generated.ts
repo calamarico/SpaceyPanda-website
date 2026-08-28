@@ -1,6 +1,6 @@
 // AUTO-GENERATED — do not edit by hand.
 // Run `npm run sync:catalog` to refresh.
-// Generated at 2026-05-31T06:13:59.210Z
+// Generated at 2026-08-28T19:07:32.335Z
 
 import type { Release } from "./catalog";
 
@@ -591,41 +591,6 @@ export const releases: Release[] = [
     ]
   },
   {
-    "id": "2xxtrqPdWy11uil8DK8Sit",
-    "name": "Systemic Contradiction",
-    "type": "SINGLE",
-    "date": "2025-05-02",
-    "datePrecision": "DAY",
-    "trackCount": 1,
-    "coverArt": "https://i.scdn.co/image/ab67616d0000b27346ff8cbe78547c27ec287f3d",
-    "spotifyUrl": "https://open.spotify.com/album/2xxtrqPdWy11uil8DK8Sit",
-    "artists": [
-      {
-        "id": "5XPqo8CFovDIu4bbfoaxRd",
-        "name": "Spacey Panda",
-        "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
-      }
-    ],
-    "isPrimaryArtist": true,
-    "tracks": [
-      {
-        "id": "0PDTHnsNegcraQ09zV3XXj",
-        "name": "Systemic Contradiction",
-        "trackNumber": 1,
-        "durationMs": 234240,
-        "spotifyUrl": "https://open.spotify.com/track/0PDTHnsNegcraQ09zV3XXj",
-        "artists": [
-          {
-            "id": "5XPqo8CFovDIu4bbfoaxRd",
-            "name": "Spacey Panda",
-            "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
-          }
-        ],
-        "isCollab": false
-      }
-    ]
-  },
-  {
     "id": "32nTpYiYWLtorDMPshCI7J",
     "name": "Gravity Falls",
     "type": "SINGLE",
@@ -667,6 +632,41 @@ export const releases: Release[] = [
           }
         ],
         "isCollab": true
+      }
+    ]
+  },
+  {
+    "id": "2xxtrqPdWy11uil8DK8Sit",
+    "name": "Systemic Contradiction",
+    "type": "SINGLE",
+    "date": "2025-05-02",
+    "datePrecision": "DAY",
+    "trackCount": 1,
+    "coverArt": "https://i.scdn.co/image/ab67616d0000b27346ff8cbe78547c27ec287f3d",
+    "spotifyUrl": "https://open.spotify.com/album/2xxtrqPdWy11uil8DK8Sit",
+    "artists": [
+      {
+        "id": "5XPqo8CFovDIu4bbfoaxRd",
+        "name": "Spacey Panda",
+        "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+      }
+    ],
+    "isPrimaryArtist": true,
+    "tracks": [
+      {
+        "id": "0PDTHnsNegcraQ09zV3XXj",
+        "name": "Systemic Contradiction",
+        "trackNumber": 1,
+        "durationMs": 234240,
+        "spotifyUrl": "https://open.spotify.com/track/0PDTHnsNegcraQ09zV3XXj",
+        "artists": [
+          {
+            "id": "5XPqo8CFovDIu4bbfoaxRd",
+            "name": "Spacey Panda",
+            "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+          }
+        ],
+        "isCollab": false
       }
     ]
   },
@@ -1002,41 +1002,6 @@ export const releases: Release[] = [
           }
         ],
         "isCollab": true
-      }
-    ]
-  },
-  {
-    "id": "5zcRB18NyWghBHeXVQVRzz",
-    "name": "Train of Toughts",
-    "type": "SINGLE",
-    "date": "2025-01-31",
-    "datePrecision": "DAY",
-    "trackCount": 1,
-    "coverArt": "https://i.scdn.co/image/ab67616d0000b273e5da151bf9121bedf19cc194",
-    "spotifyUrl": "https://open.spotify.com/album/5zcRB18NyWghBHeXVQVRzz",
-    "artists": [
-      {
-        "id": "5XPqo8CFovDIu4bbfoaxRd",
-        "name": "Spacey Panda",
-        "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
-      }
-    ],
-    "isPrimaryArtist": true,
-    "tracks": [
-      {
-        "id": "3A6Uk98xIWRiwnQcOuhBgu",
-        "name": "Train of Toughts",
-        "trackNumber": 1,
-        "durationMs": 208746,
-        "spotifyUrl": "https://open.spotify.com/track/3A6Uk98xIWRiwnQcOuhBgu",
-        "artists": [
-          {
-            "id": "5XPqo8CFovDIu4bbfoaxRd",
-            "name": "Spacey Panda",
-            "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
-          }
-        ],
-        "isCollab": false
       }
     ]
   },
