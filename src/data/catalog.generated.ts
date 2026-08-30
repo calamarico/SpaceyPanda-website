@@ -1,6 +1,5 @@
 // AUTO-GENERATED — do not edit by hand.
 // Run `npm run sync:catalog` to refresh.
-// Generated at 2026-08-30T16:57:27.839Z
 
 import type { Release } from "./catalog";
 

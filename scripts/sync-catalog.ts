@@ -204,7 +204,6 @@ async function writeOutput(releases: Release[]) {
   const lines = [
     "// AUTO-GENERATED — do not edit by hand.",
     "// Run `npm run sync:catalog` to refresh.",
-    `// Generated at ${new Date().toISOString()}`,
     "",
     'import type { Release } from "./catalog";',
     "",
