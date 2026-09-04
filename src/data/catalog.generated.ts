@@ -5,6 +5,46 @@ import type { Release } from "./catalog";
 
 export const releases: Release[] = [
   {
+    "id": "3htlAUlQ3vlVQWPqwcKgbD",
+    "name": "Pandagirl And Frequency Boy",
+    "type": "SINGLE",
+    "date": "2026-09-04",
+    "datePrecision": "DAY",
+    "trackCount": 1,
+    "coverArt": "https://i.scdn.co/image/ab67616d0000b273b478f90a18d72fb0e745b989",
+    "spotifyUrl": "https://open.spotify.com/album/3htlAUlQ3vlVQWPqwcKgbD",
+    "artists": [
+      {
+        "id": "5XPqo8CFovDIu4bbfoaxRd",
+        "name": "Spacey Panda",
+        "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+      }
+    ],
+    "isPrimaryArtist": true,
+    "tracks": [
+      {
+        "id": "1z3uUyoY0aZ3lRZIh3LJmY",
+        "name": "Pandagirl And Frequency Boy",
+        "trackNumber": 1,
+        "durationMs": 171050,
+        "spotifyUrl": "https://open.spotify.com/track/1z3uUyoY0aZ3lRZIh3LJmY",
+        "artists": [
+          {
+            "id": "5XPqo8CFovDIu4bbfoaxRd",
+            "name": "Spacey Panda",
+            "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+          },
+          {
+            "id": "7sSj3l6H7P7aNV0pmYpHix",
+            "name": "Instrumental Humans",
+            "spotifyUrl": "https://open.spotify.com/artist/7sSj3l6H7P7aNV0pmYpHix"
+          }
+        ],
+        "isCollab": true
+      }
+    ]
+  },
+  {
     "id": "7F9m0pmM2d65nRmfVRX12s",
     "name": "Slow Gravity Zone",
     "type": "SINGLE",
