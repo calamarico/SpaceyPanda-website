@@ -1450,7 +1450,8 @@ a {
 }
 .sp-release-featured-lead-body {
   position: relative;
-  z-index: 1;
+  /* No z-index on purpose: it would create a stacking context and trap the
+     actions below .sp-card-link, making "Listen on Spotify" unclickable. */
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -2684,4 +2685,358 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ==========================================================================
+   RELEASE PAGES — /releases/<slug>/
+   Standalone prerendered pages, one per release. Reuses the same tokens as the
+   rest of the site; only the layout is new.
+   ========================================================================== */
+.sp-rp {
+  position: relative;
+  z-index: 1;
+  padding: 136px 0 96px;
+}
+@media (max-width: 720px) {
+  .sp-rp {
+    padding: 108px 0 72px;
+  }
+}
+
+.sp-rp-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 36px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-4);
+}
+.sp-rp-crumbs a {
+  color: var(--fg-3);
+  text-decoration: none;
+  transition: color var(--dur-quick) var(--ease-out);
+}
+.sp-rp-crumbs a:hover {
+  color: rgb(var(--cyan-soft-rgb));
+}
+.sp-rp-crumbs [aria-current] {
+  color: var(--fg-1);
+}
+
+.sp-rp-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .sp-rp-hero {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.sp-rp-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 80px rgba(4, 3, 10, 0.6);
+}
+
+.sp-rp-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.sp-rp-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgb(var(--cyan-soft-rgb));
+  margin: 0 0 18px;
+}
+.sp-rp-title {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5.4vw, 62px);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+.sp-rp-byline {
+  font-size: 16px;
+  color: var(--fg-3);
+  margin: 0 0 32px;
+}
+.sp-rp-byline a {
+  color: var(--fg-1);
+  text-decoration: none;
+  border-bottom: 1px solid rgb(var(--accent-rgb) / 0.4);
+  transition: border-color var(--dur-quick) var(--ease-out);
+}
+.sp-rp-byline a:hover {
+  border-bottom-color: rgb(var(--accent-rgb));
+}
+
+.sp-rp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  padding: 22px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+.sp-rp-meta-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sp-rp-meta-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--fg-4);
+}
+.sp-rp-meta-value {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--fg-1);
+}
+
+.sp-rp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.sp-rp-section {
+  margin-top: 88px;
+}
+@media (max-width: 720px) {
+  .sp-rp-section {
+    margin-top: 64px;
+  }
+}
+.sp-rp-h2 {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--fg-4);
+  margin: 0 0 20px;
+  font-weight: 500;
+}
+
+.sp-rp-tracks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--border);
+  max-width: 760px;
+}
+.sp-rp-track {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--dur-quick) var(--ease-out);
+}
+.sp-rp-track:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+.sp-rp-track-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--fg-4);
+}
+.sp-rp-track-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.sp-rp-track-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--fg-1);
+  text-decoration: none;
+}
+.sp-rp-track-name:hover {
+  color: rgb(var(--cyan-soft-rgb));
+}
+.sp-rp-track-feat {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgb(var(--accent-soft-rgb));
+}
+.sp-rp-track-dur {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-3);
+}
+
+.sp-rp-about {
+  max-width: 68ch;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--fg-3);
+  margin: 0 0 18px;
+}
+.sp-rp-about-more {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-4);
+}
+.sp-rp-about-more a {
+  color: rgb(var(--cyan-soft-rgb));
+  text-decoration: none;
+}
+.sp-rp-about-more a:hover {
+  color: var(--fg-1);
+}
+
+.sp-rp-related {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 22px 18px;
+}
+.sp-rp-related-card a {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  transition: transform var(--dur-quick) var(--ease-out);
+}
+.sp-rp-related-card a:hover {
+  transform: translateY(-4px);
+}
+.sp-rp-related-cover {
+  display: block;
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.sp-rp-related-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg-1);
+  line-height: 1.3;
+}
+.sp-rp-related-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--fg-4);
+}
+.sp-rp-all {
+  margin: 32px 0 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.sp-rp-all a {
+  color: rgb(var(--cyan-soft-rgb));
+  text-decoration: none;
+}
+.sp-rp-all a:hover {
+  color: var(--fg-1);
+}
+
+/* ── Release index (/releases/) ─────────────────────────────────────────── */
+.sp-ri-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  /* 145px keeps two columns on a 390px phone rather than one huge one. */
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  gap: 26px 20px;
+}
+.sp-ri-card a {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  transition: transform var(--dur-quick) var(--ease-out);
+}
+.sp-ri-card a:hover {
+  transform: translateY(-4px);
+}
+.sp-ri-cover {
+  display: block;
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.sp-ri-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--fg-1);
+  line-height: 1.3;
+}
+.sp-ri-meta {
+  font-family: var(--font-mono);
+  /* 12px is the floor for "legible text" on mobile; at 10px this caption
+     repeated 57 times dragged the whole index below the threshold. */
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-4);
+}
+
+/* ── Stretched card links ───────────────────────────────────────────────────
+   Release cards are anchors to /releases/<slug>/ so crawlers can reach every
+   release page and "open in new tab" works, while a plain click still opens the
+   modal. The anchor covers the card instead of wrapping it, which keeps the
+   existing grid/flex layouts untouched. */
+.sp-release-grid-card,
+.sp-release-list-row,
+.sp-release-timeline-card {
+  position: relative;
+}
+.sp-card-link {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+}
+.sp-card-link:focus-visible {
+  outline: 2px solid rgb(var(--cyan-rgb));
+  outline-offset: 3px;
+}
+/* Real controls inside a card must stay clickable above the stretched link. */
+.sp-release-featured-lead-actions {
+  position: relative;
+  z-index: 6;
 }

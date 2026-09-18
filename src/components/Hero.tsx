@@ -88,7 +88,7 @@ export function Hero() {
             decoding="async"
           />
           <span className="sp-visually-hidden">
-            Spacey Panda — melodic electronic producer
+            Spacey Panda — IDM, ambient and experimental electronic producer
           </span>
         </h1>
 

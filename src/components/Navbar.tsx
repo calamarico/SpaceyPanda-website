@@ -11,7 +11,11 @@ const LINKS = [
 
 const SPOTIFY_URL = site.streaming.find((s) => s.icon === "spotify")?.url;
 
-export function Navbar() {
+/**
+ * `hrefBase` lets the same nav work off the home page: release pages pass "/" so
+ * the section anchors become "/#about" instead of a fragment that points nowhere.
+ */
+export function Navbar({ hrefBase = "" }: { hrefBase?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -49,19 +53,19 @@ export function Navbar() {
     <>
       <nav className={"sp-nav" + (scrolled ? " scrolled" : "")}>
         <div className="sp-container sp-nav-inner">
-          <a href="#top" className="sp-nav-mark" onClick={closeMenu}>
+          <a href={`${hrefBase}#top`} className="sp-nav-mark" onClick={closeMenu}>
             <span className="sp-mark-spacey">SPACEY</span>
             <span className="sp-mark-panda">PANDA</span>
           </a>
           <div className="sp-nav-links">
             {LINKS.map((l) => (
-              <a key={l.href} href={l.href}>
+              <a key={l.href} href={`${hrefBase}${l.href}`}>
                 {l.label}
               </a>
             ))}
           </div>
           <div className="sp-nav-actions">
-            <a className="sp-nav-cta" href="#listen">
+            <a className="sp-nav-cta" href={`${hrefBase}#listen`}>
               <ui.Headphones size={14} /> Listen
             </a>
             <button
@@ -89,7 +93,12 @@ export function Navbar() {
       >
         <div className="sp-mobile-menu-links">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={closeMenu} tabIndex={menuOpen ? 0 : -1}>
+            <a
+              key={l.href}
+              href={`${hrefBase}${l.href}`}
+              onClick={closeMenu}
+              tabIndex={menuOpen ? 0 : -1}
+            >
               {l.label}
             </a>
           ))}

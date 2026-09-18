@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
 
-    <!-- ── Identity ─────────────────────────────────────────────────────── -->
-    <title>Spacey Panda — Melodic Electronic Producer</title>
+    <!-- ── Identity ─────────────────────────────────────────────────────────
+         Everything between the PAGE-META markers is specific to THIS page —
+         metadata, social card and the LCP preload. The prerender swaps the whole
+         block out when it generates /releases/ and /releases/<slug>/.
+         Keep the markers intact: the build fails without them. -->
+    <!-- PAGE-META:start -->
+    <title>Spacey Panda — IDM, Ambient &amp; Experimental Electronic</title>
     <meta
       name="description"
-      content="Spacey Panda is a melodic electronic producer charting constellations of sound and souls. Stream the full catalogue on Spotify, Apple Music, Beatport, Bandcamp and more."
+      content="Spacey Panda is a Canadian electronic producer — IDM rhythms, ambient textures and cinematic synths. Stream the full catalogue on Spotify, Apple Music, Bandcamp and more."
     />
     <link rel="canonical" href="https://spaceypanda.com/" />
     <meta name="author" content="Spacey Panda" />
@@ -18,15 +23,17 @@
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
 
-    <!-- ── Social previews ──────────────────────────────────────────────── -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Spacey Panda" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://spaceypanda.com/" />
-    <meta property="og:title" content="Spacey Panda — Melodic Electronic Producer" />
+    <meta
+      property="og:title"
+      content="Spacey Panda — IDM, Ambient &amp; Experimental Electronic"
+    />
     <meta
       property="og:description"
-      content="Melodic electronic producer charting constellations of sound and souls. Stream the full catalogue on Spotify, Apple Music, Beatport, Bandcamp and more."
+      content="Canadian electronic producer — IDM rhythms, ambient textures and cinematic synths. Stream the full catalogue on Spotify, Apple Music, Bandcamp and more."
     />
     <meta property="og:image" content="https://spaceypanda.com/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -34,20 +41,37 @@
     <meta property="og:image:type" content="image/jpeg" />
     <meta
       property="og:image:alt"
-      content="Spacey Panda — melodic electronic producer"
+      content="Spacey Panda — electronic producer"
     />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Spacey Panda — Melodic Electronic Producer" />
+    <meta
+      name="twitter:title"
+      content="Spacey Panda — IDM, Ambient &amp; Experimental Electronic"
+    />
     <meta
       name="twitter:description"
-      content="Melodic electronic producer charting constellations of sound and souls. Stream the full catalogue on Spotify, Apple Music, Beatport, Bandcamp and more."
+      content="Canadian electronic producer — IDM rhythms, ambient textures and cinematic synths. Stream the full catalogue on Spotify, Apple Music, Bandcamp and more."
     />
     <meta name="twitter:image" content="https://spaceypanda.com/og-image.jpg" />
     <meta
       name="twitter:image:alt"
-      content="Spacey Panda — melodic electronic producer"
+      content="Spacey Panda — electronic producer"
     />
+
+    <!-- Hero logo is the LCP element *of the home page*. Mirrors the <img>
+         srcset/sizes exactly so the preload scanner fetches the same candidate
+         the layout will pick. Release pages replace this with their cover art. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/spacey-logo.webp"
+      imagesrcset="/spacey-logo-480.webp 480w, /spacey-logo.webp 960w"
+      imagesizes="(max-width: 880px) 50vw, 460px"
+      fetchpriority="high"
+    />
+    <!-- PAGE-META:end -->
 
     <!-- ── Icons / PWA ──────────────────────────────────────────────────── -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -78,17 +102,6 @@
       as="font"
       type="font/woff2"
       crossorigin
-    />
-    <!-- Hero logo is the LCP element. Mirrors the <img> srcset/sizes exactly so
-         the preload scanner fetches the same candidate the layout will pick. -->
-    <link
-      rel="preload"
-      as="image"
-      type="image/webp"
-      href="/spacey-logo.webp"
-      imagesrcset="/spacey-logo-480.webp 480w, /spacey-logo.webp 960w"
-      imagesizes="(max-width: 880px) 50vw, 460px"
-      fetchpriority="high"
     />
     <!-- Release artwork is served from Spotify's CDN. -->
     <link rel="preconnect" href="https://i.scdn.co" crossorigin />

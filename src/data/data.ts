@@ -5,10 +5,10 @@ export const site: SiteData = {
     name: "Spacey Panda",
     tagline: "Charting constellations of sound and souls",
     location: "Canada",
-    role: "Electronic / Melodic Producer",
+    role: "IDM / Ambient / Experimental Electronic Producer",
     bio: [
-      "I'm a melodic-electronic producer from Canada, working in the soft space between dance music and ambient drift — synths that breathe, basslines you can dance to slowly, and percussion that feels like it's mapping something out in the dark.",
-      "My tracks tend to start as small constellations — a chord, a vocal chop, a single texture — that I trace out until they connect into a full sky. Continuous, melodic, a little nostalgic. I'd rather move you than impress you.",
+      "I'm an electronic producer from Canada working in dreamy, melodic and experimental territory — IDM rhythms that never quite sit still, ambient textures you can get lost inside, and synths lifted from a videogame you're not sure you ever played.",
+      "My tracks tend to start as small constellations — a chord, a vocal chop, a glitched-out beat — that I trace out until they connect into a full sky. Emotional, cinematic, a little nostalgic. I'd rather move you than impress you.",
     ],
   },
 
@@ -19,7 +19,7 @@ export const site: SiteData = {
     label: "Independent",
   },
 
-  hero_meta: ["Melodic Electronic", "Producer", "Est. 2022"],
+  hero_meta: ["IDM & Ambient", "Producer", "Est. 2022"],
 
   streaming: [
     {

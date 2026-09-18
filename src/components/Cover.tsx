@@ -15,6 +15,13 @@ type CoverProps = {
    * already spelled out beside the cover — it only risks colliding with the art.
    */
   showYear?: boolean;
+  /** Same story for the title caption: off wherever the name is already shown. */
+  showTitle?: boolean;
+  /**
+   * The cover is the LCP element on a release page. Lazy-loading it there costs
+   * ~1s, so that one instance opts into eager loading and high priority.
+   */
+  priority?: boolean;
 };
 
 // Spotify encodes the crop size in the image id: the catalogue stores the 640px
@@ -42,6 +49,8 @@ export function Cover({
   variant = "default",
   sizes = "240px",
   showYear = true,
+  showTitle = true,
+  priority = false,
 }: CoverProps) {
   const isMini = variant === "mini";
   const isBig = variant === "big";
@@ -54,7 +63,8 @@ export function Cover({
         srcSet={coverSrcSet(release.coverArt)}
         sizes={sizes}
         alt={`${release.name} — cover art`}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : undefined}
         decoding="async"
         draggable={false}
         width={640}
@@ -84,7 +94,7 @@ export function Cover({
         </>
       )}
 
-      <span className="sp-cover-title">{release.name}</span>
+      {showTitle && <span className="sp-cover-title">{release.name}</span>}
     </div>
   );
 }

@@ -9,7 +9,7 @@ export function About() {
         <div className="sp-section-head">
           <span className="sp-eyebrow">About</span>
           <h2 className="sp-h2">
-            Melodic electronic, made{" "}
+            Dreamy and experimental, made{" "}
             <span className="sp-text-gradient">slowly and on purpose</span>.
           </h2>
         </div>
@@ -44,7 +44,7 @@ export function About() {
             </div>
             <div className="sp-stat-row">
               <span className="sp-stat-label">Genre</span>
-              <span className="sp-stat-value">Melodic Electronic</span>
+              <span className="sp-stat-value">IDM · Ambient · Experimental</span>
             </div>
             <div className="sp-stat-row">
               <span className="sp-stat-label">Currently working on</span>

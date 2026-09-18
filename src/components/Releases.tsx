@@ -1,4 +1,10 @@
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  useSyncExternalStore,
+  type MouseEvent,
+} from "react";
 import { releases, type Release } from "../data/catalog";
 import {
   collaboratorLabel,
@@ -8,6 +14,7 @@ import {
   otherArtists,
   releaseYear,
 } from "../lib/catalog";
+import { releasePath } from "../lib/releaseUrl";
 import { Cover } from "./Cover";
 import { ReleaseModal } from "./ReleaseModal";
 import { ui } from "../lib/icons";
@@ -16,6 +23,41 @@ type Filter = "all" | "single" | "ep";
 type View = "grid" | "list" | "timeline";
 
 const FEATURED_COUNT = 3;
+
+/**
+ * Every card is a real <a> to the release's own page — that is how crawlers
+ * discover the 57 release pages, and how middle-click / "open in new tab" /
+ * "copy link" work at all. A plain left-click still opens the modal, so the
+ * browsing experience is unchanged; anything else is left to the browser.
+ */
+function opensModal(onOpen: () => void) {
+  return (event: MouseEvent<HTMLAnchorElement>) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (event.button !== 0) return;
+    event.preventDefault();
+    onOpen();
+  };
+}
+
+/**
+ * Stretched link: covers the whole card without touching its layout, so the
+ * card markup stays a plain <li> (a <li role="button"> is invalid inside <ul>).
+ */
+function CardLink({
+  release,
+  onOpen,
+  label,
+}: {
+  release: Release;
+  onOpen: () => void;
+  label?: string;
+}) {
+  return (
+    <a className="sp-card-link" href={releasePath(release)} onClick={opensModal(onOpen)}>
+      <span className="sp-visually-hidden">{label ?? release.name}</span>
+    </a>
+  );
+}
 
 // The prerendered HTML is always built with the default view, so the first client
 // render has to match it before ?view= can be honoured.
@@ -202,18 +244,7 @@ function FeaturedLead({
             : "Single";
 
   return (
-    <li
-      onClick={onClick}
-      className="sp-release-featured-lead"
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onClick();
-        }
-      }}
-    >
+    <li className="sp-release-featured-lead">
       <div className="sp-release-featured-lead-cover">
         <Cover
           release={release}
@@ -259,6 +290,8 @@ function FeaturedLead({
           </span>
         </div>
       </div>
+
+      <CardLink release={release} onOpen={onClick} />
     </li>
   );
 }
@@ -295,18 +328,7 @@ function FeaturedSecondary({
   onClick: () => void;
 }) {
   return (
-    <li
-      onClick={onClick}
-      className="sp-release-featured-secondary"
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onClick();
-        }
-      }}
-    >
+    <li className="sp-release-featured-secondary">
       <div className="sp-release-featured-secondary-cover">
         <Cover
           release={release}
@@ -332,6 +354,8 @@ function FeaturedSecondary({
           </p>
         )}
       </div>
+
+      <CardLink release={release} onOpen={onClick} />
     </li>
   );
 }
@@ -344,18 +368,7 @@ function GridCard({
   onClick: () => void;
 }) {
   return (
-    <li
-      onClick={onClick}
-      className="sp-release-grid-card"
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onClick();
-        }
-      }}
-    >
+    <li className="sp-release-grid-card">
       <div className="sp-release-grid-card-cover">
         <Cover release={release} sizes="(max-width: 700px) 44vw, 260px" />
       </div>
@@ -374,6 +387,8 @@ function GridCard({
           </p>
         )}
       </div>
+
+      <CardLink release={release} onOpen={onClick} />
     </li>
   );
 }
@@ -396,19 +411,7 @@ function ListView({
         <span></span>
       </li>
       {releases.map((r) => (
-        <li
-          key={r.id}
-          onClick={() => onOpen(r)}
-          className="sp-release-list-row"
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              onOpen(r);
-            }
-          }}
-        >
+        <li key={r.id} className="sp-release-list-row">
           <div className="sp-release-list-cover">
             <Cover release={r} variant="mini" sizes="64px" />
           </div>
@@ -435,6 +438,8 @@ function ListView({
           <span className="sp-release-list-play" aria-hidden>
             <ui.Play size={11} />
           </span>
+
+          <CardLink release={r} onOpen={() => onOpen(r)} />
         </li>
       ))}
     </ul>
@@ -462,19 +467,7 @@ function Timeline({
               <div className="sp-release-timeline-marker-year">{year}</div>
             </div>,
             ...items.map((r) => (
-              <div
-                key={r.id}
-                onClick={() => onOpen(r)}
-                className="sp-release-timeline-card"
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    onOpen(r);
-                  }
-                }}
-              >
+              <div key={r.id} className="sp-release-timeline-card">
                 <div className="sp-release-timeline-cover">
                   <Cover release={r} sizes="220px" />
                 </div>
@@ -487,6 +480,8 @@ function Timeline({
                     {collaboratorLabel(r)}
                   </div>
                 )}
+
+                <CardLink release={r} onOpen={() => onOpen(r)} />
               </div>
             )),
           ])}

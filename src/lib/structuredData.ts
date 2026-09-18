@@ -12,14 +12,19 @@
 import { releases, type Release } from "../data/catalog";
 import { site } from "../data/data";
 import { isAppearsOn } from "./catalog";
+import { releasePath } from "./releaseUrl";
 
 export const SITE_URL = "https://spaceypanda.com";
 
-const ARTIST_ID = `${SITE_URL}/#artist`;
+export const ARTIST_ID = `${SITE_URL}/#artist`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 const WEBPAGE_ID = `${SITE_URL}/#webpage`;
 
-const releaseId = (r: Release) => `${SITE_URL}/#release-${r.id}`;
+/** Absolute URL of a release's own page on this site. */
+export const releaseUrl = (r: Release) => `${SITE_URL}${releasePath(r)}`;
+
+/** Each release is identified by its page, not by a fragment on the home page. */
+export const releaseId = (r: Release) => `${releaseUrl(r)}#release`;
 
 /** ms → ISO-8601 duration ("PT4M32S"), the format schema.org expects. */
 function isoDuration(ms: number): string {
@@ -66,7 +71,7 @@ function byArtistOf(r: Release): unknown {
   return refs.length === 1 ? refs[0] : refs;
 }
 
-function releaseNode(r: Release): JsonLdNode {
+export function releaseNode(r: Release): JsonLdNode {
   const node: JsonLdNode = {
     "@type": "MusicAlbum",
     "@id": releaseId(r),
@@ -76,7 +81,7 @@ function releaseNode(r: Release): JsonLdNode {
     datePublished: publishedDate(r),
     numTracks: r.trackCount,
     image: r.coverArt,
-    url: r.spotifyUrl,
+    url: releaseUrl(r),
     sameAs: r.spotifyUrl,
   };
 
@@ -104,10 +109,15 @@ function releaseNode(r: Release): JsonLdNode {
   return node;
 }
 
-export function buildStructuredData(): JsonLdNode {
+/**
+ * `withAlbums` controls whether the full discography is listed. The home page and
+ * the catalogue index want it; an individual release page only needs the entity
+ * itself (name, genre, sameAs), and 47 extra @id references per page add up.
+ */
+export function artistNode({ withAlbums = true } = {}): JsonLdNode {
   const own = releases.filter((r) => !isAppearsOn(r));
 
-  const artist: JsonLdNode = {
+  return {
     "@type": "MusicGroup",
     "@id": ARTIST_ID,
     name: site.artist.name,
@@ -117,11 +127,11 @@ export function buildStructuredData(): JsonLdNode {
     description: site.artist.bio.join(" "),
     slogan: site.artist.tagline,
     genre: [
-      "Melodic Electronic",
-      "Electronic",
-      "Melodic House & Techno",
+      "IDM",
       "Ambient",
-      "Dance",
+      "Experimental Electronic",
+      "Electronic",
+      "Downtempo",
     ],
     foundingDate: site.stats.started,
     foundingLocation: { "@type": "Place", name: site.artist.location },
@@ -145,10 +155,14 @@ export function buildStructuredData(): JsonLdNode {
       site.instagram.url,
       site.blog.url,
     ],
-    album: own.map((r) => ({ "@id": releaseId(r) })),
+    ...(withAlbums
+      ? { album: own.map((r) => ({ "@id": releaseId(r) })) }
+      : {}),
   };
+}
 
-  const website: JsonLdNode = {
+export function websiteNode(): JsonLdNode {
+  return {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
     url: `${SITE_URL}/`,
@@ -157,12 +171,14 @@ export function buildStructuredData(): JsonLdNode {
     inLanguage: "en",
     publisher: { "@id": ARTIST_ID },
   };
+}
 
+export function buildStructuredData(): JsonLdNode {
   const webpage: JsonLdNode = {
     "@type": "WebPage",
     "@id": WEBPAGE_ID,
     url: `${SITE_URL}/`,
-    name: "Spacey Panda — Melodic Electronic Producer",
+    name: "Spacey Panda — IDM, Ambient & Experimental Electronic",
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": ARTIST_ID },
     primaryImageOfPage: { "@id": `${SITE_URL}/#logo` },
@@ -171,7 +187,7 @@ export function buildStructuredData(): JsonLdNode {
 
   return {
     "@context": "https://schema.org",
-    "@graph": [artist, website, webpage, ...releases.map(releaseNode)],
+    "@graph": [artistNode(), websiteNode(), webpage, ...releases.map(releaseNode)],
   };
 }
 

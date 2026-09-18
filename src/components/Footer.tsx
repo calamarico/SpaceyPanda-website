@@ -1,7 +1,7 @@
 import { site } from "../data/data";
 import { ui } from "../lib/icons";
 
-export function Footer() {
+export function Footer({ hrefBase = "" }: { hrefBase?: string }) {
   const year = new Date().getFullYear();
   const spotifyUrl = site.streaming.find((s) => s.icon === "spotify")?.url;
   const bandcampUrl = site.streaming.find((s) => s.icon === "bandcamp")?.url;
@@ -11,7 +11,7 @@ export function Footer() {
       <div className="sp-container">
         <div className="sp-footer-inner">
           <div>
-            <a href="#top" className="sp-nav-mark" style={{ fontSize: 22 }}>
+            <a href={`${hrefBase}#top`} className="sp-nav-mark" style={{ fontSize: 22 }}>
               <span className="sp-mark-spacey">SPACEY</span>
               <span className="sp-mark-panda">PANDA</span>
             </a>
@@ -22,10 +22,12 @@ export function Footer() {
           <div>
             <h2>Explore</h2>
             <div className="sp-footer-links">
-              <a href="#about">About</a>
-              <a href="#releases">Releases</a>
-              <a href="#listen">Listen</a>
-              <a href="#blog">Blog</a>
+              <a href={`${hrefBase}#about`}>About</a>
+              <a href={`${hrefBase}#releases`}>Releases</a>
+              {/* The standalone catalogue index — reachable from every page. */}
+              <a href="/releases/">All releases</a>
+              <a href={`${hrefBase}#listen`}>Listen</a>
+              <a href={`${hrefBase}#blog`}>Blog</a>
             </div>
           </div>
           <div>
