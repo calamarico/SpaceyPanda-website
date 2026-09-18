@@ -5,6 +5,41 @@ import type { Release } from "./catalog";
 
 export const releases: Release[] = [
   {
+    "id": "6RZwviXTcOUjJdAmPEXkf1",
+    "name": "Train Of Toughts",
+    "type": "SINGLE",
+    "date": "2026-09-18",
+    "datePrecision": "DAY",
+    "trackCount": 1,
+    "coverArt": "https://i.scdn.co/image/ab67616d0000b2737f843e01d397b837a843cd1e",
+    "spotifyUrl": "https://open.spotify.com/album/6RZwviXTcOUjJdAmPEXkf1",
+    "artists": [
+      {
+        "id": "5XPqo8CFovDIu4bbfoaxRd",
+        "name": "Spacey Panda",
+        "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+      }
+    ],
+    "isPrimaryArtist": true,
+    "tracks": [
+      {
+        "id": "2wqvuINLnbhibpqvj0WjM4",
+        "name": "Train Of Toughts",
+        "trackNumber": 1,
+        "durationMs": 209250,
+        "spotifyUrl": "https://open.spotify.com/track/2wqvuINLnbhibpqvj0WjM4",
+        "artists": [
+          {
+            "id": "5XPqo8CFovDIu4bbfoaxRd",
+            "name": "Spacey Panda",
+            "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+          }
+        ],
+        "isCollab": false
+      }
+    ]
+  },
+  {
     "id": "3htlAUlQ3vlVQWPqwcKgbD",
     "name": "Pandagirl And Frequency Boy",
     "type": "SINGLE",
