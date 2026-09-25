@@ -5,6 +5,51 @@ import type { Release } from "./catalog";
 
 export const releases: Release[] = [
   {
+    "id": "7ACtA54E0QcxkDx1GCxJxo",
+    "name": "Beyond (Remix)",
+    "type": "SINGLE",
+    "date": "2026-09-25",
+    "datePrecision": "DAY",
+    "trackCount": 1,
+    "coverArt": "https://i.scdn.co/image/ab67616d0000b273d31505d1e815689db9aaee35",
+    "spotifyUrl": "https://open.spotify.com/album/7ACtA54E0QcxkDx1GCxJxo",
+    "artists": [
+      {
+        "id": "0sPUu9GBsZXkRODNdfETeU",
+        "name": "Coalescence Cascade",
+        "spotifyUrl": "https://open.spotify.com/artist/0sPUu9GBsZXkRODNdfETeU"
+      },
+      {
+        "id": "5XPqo8CFovDIu4bbfoaxRd",
+        "name": "Spacey Panda",
+        "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+      }
+    ],
+    "isPrimaryArtist": true,
+    "tracks": [
+      {
+        "id": "1Bu05RcOQ9UZKVnCqX31Jo",
+        "name": "Beyond - Remix",
+        "trackNumber": 1,
+        "durationMs": 259200,
+        "spotifyUrl": "https://open.spotify.com/track/1Bu05RcOQ9UZKVnCqX31Jo",
+        "artists": [
+          {
+            "id": "0sPUu9GBsZXkRODNdfETeU",
+            "name": "Coalescence Cascade",
+            "spotifyUrl": "https://open.spotify.com/artist/0sPUu9GBsZXkRODNdfETeU"
+          },
+          {
+            "id": "5XPqo8CFovDIu4bbfoaxRd",
+            "name": "Spacey Panda",
+            "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+          }
+        ],
+        "isCollab": true
+      }
+    ]
+  },
+  {
     "id": "6RZwviXTcOUjJdAmPEXkf1",
     "name": "Train Of Toughts",
     "type": "SINGLE",
