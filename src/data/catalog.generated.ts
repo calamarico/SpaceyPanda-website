@@ -5,6 +5,51 @@ import type { Release } from "./catalog";
 
 export const releases: Release[] = [
   {
+    "id": "4q9c0TVffGfEMW4HHDxMy7",
+    "name": "Fading",
+    "type": "SINGLE",
+    "date": "2026-10-02",
+    "datePrecision": "DAY",
+    "trackCount": 1,
+    "coverArt": "https://i.scdn.co/image/ab67616d0000b2731637745a9852fa2b982a16f6",
+    "spotifyUrl": "https://open.spotify.com/album/4q9c0TVffGfEMW4HHDxMy7",
+    "artists": [
+      {
+        "id": "3gVFRT6XP0P1DSbgI0MF0w",
+        "name": "Mago",
+        "spotifyUrl": "https://open.spotify.com/artist/3gVFRT6XP0P1DSbgI0MF0w"
+      },
+      {
+        "id": "5XPqo8CFovDIu4bbfoaxRd",
+        "name": "Spacey Panda",
+        "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+      }
+    ],
+    "isPrimaryArtist": true,
+    "tracks": [
+      {
+        "id": "2YdosxKnYLsFpcbWIq547W",
+        "name": "Fading",
+        "trackNumber": 1,
+        "durationMs": 302717,
+        "spotifyUrl": "https://open.spotify.com/track/2YdosxKnYLsFpcbWIq547W",
+        "artists": [
+          {
+            "id": "3gVFRT6XP0P1DSbgI0MF0w",
+            "name": "Mago",
+            "spotifyUrl": "https://open.spotify.com/artist/3gVFRT6XP0P1DSbgI0MF0w"
+          },
+          {
+            "id": "5XPqo8CFovDIu4bbfoaxRd",
+            "name": "Spacey Panda",
+            "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+          }
+        ],
+        "isCollab": true
+      }
+    ]
+  },
+  {
     "id": "7ACtA54E0QcxkDx1GCxJxo",
     "name": "Beyond (Remix)",
     "type": "SINGLE",
