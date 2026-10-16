@@ -5,6 +5,41 @@ import type { Release } from "./catalog";
 
 export const releases: Release[] = [
   {
+    "id": "0xup3mpQaWbXEIv9koHKYO",
+    "name": "Marsh Monster",
+    "type": "SINGLE",
+    "date": "2026-10-16",
+    "datePrecision": "DAY",
+    "trackCount": 1,
+    "coverArt": "https://i.scdn.co/image/ab67616d0000b273857493b7a35cc9e64592389e",
+    "spotifyUrl": "https://open.spotify.com/album/0xup3mpQaWbXEIv9koHKYO",
+    "artists": [
+      {
+        "id": "5XPqo8CFovDIu4bbfoaxRd",
+        "name": "Spacey Panda",
+        "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+      }
+    ],
+    "isPrimaryArtist": true,
+    "tracks": [
+      {
+        "id": "1yTjM1nBZeRdO55x1BS4ka",
+        "name": "Marsh Monster",
+        "trackNumber": 1,
+        "durationMs": 203498,
+        "spotifyUrl": "https://open.spotify.com/track/1yTjM1nBZeRdO55x1BS4ka",
+        "artists": [
+          {
+            "id": "5XPqo8CFovDIu4bbfoaxRd",
+            "name": "Spacey Panda",
+            "spotifyUrl": "https://open.spotify.com/artist/5XPqo8CFovDIu4bbfoaxRd"
+          }
+        ],
+        "isCollab": false
+      }
+    ]
+  },
+  {
     "id": "4q9c0TVffGfEMW4HHDxMy7",
     "name": "Fading",
     "type": "SINGLE",
