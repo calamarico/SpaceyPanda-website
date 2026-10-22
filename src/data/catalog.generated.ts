@@ -21,7 +21,6 @@ export const releases: Release[] = [
       }
     ],
     "isPrimaryArtist": true,
-    "label": "Zero Gravity Records",
     "tracks": [
       {
         "id": "1yTjM1nBZeRdO55x1BS4ka",
@@ -222,7 +221,6 @@ export const releases: Release[] = [
       }
     ],
     "isPrimaryArtist": true,
-    "label": "Beta-Time Records",
     "tracks": [
       {
         "id": "7zU7dIDO2MzxgsjhNCXoTP",
